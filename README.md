@@ -1,4 +1,6 @@
-# DevOps Capstone Template
+# Devops-Capstone-Project
+
+ This is an account microservice to keep track of the customers on a e-commerce website. It is a REST API that other microservices can call. This service initially needs to create, read, update, delete, and list customers.
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Python 3.9](https://img.shields.io/badge/Python-3.9-green.svg)](https://shields.io/)
