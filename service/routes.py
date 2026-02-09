@@ -66,12 +66,10 @@ def list_all_accounts():
     app.logger.info("List of all accounts")
     accounts = Account.all()
     
-    if len(accounts) == 0:
-        return [], status.HTTP_200_OK
-    else:
-        account_list = [account.serialize() for account in accounts]
-        app.logger.info("There are [%s] accounts", len(account_list))
-        return jsonify(account_list), status.HTTP_200_OK
+    account_list = [account.serialize() for account in accounts]
+    app.logger.info("There are [%s] accounts", len(account_list))
+    
+    return jsonify(account_list), status.HTTP_200_OK
 
 ######################################################################
 # READ AN ACCOUNT
@@ -107,9 +105,16 @@ def update_account(account_id):
 ######################################################################
 # DELETE AN ACCOUNT
 ######################################################################
+@app.route("/accounts/<int:account_id>", methods=["DELETE"])
+def delete_account(account_id):
+    """Deletes and account based on the requested account_id"""
+    app.logger.info("Request to delete an account with id: %s", account_id)
 
-# ... place you code here to DELETE an account ...
+    account = Account.find(account_id)
+    if account:
+        account.delete()
 
+    return "", status.HTTP_204_NO_CONTENT
 
 ######################################################################
 #  U T I L I T Y   F U N C T I O N S
