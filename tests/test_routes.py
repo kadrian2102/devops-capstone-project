@@ -123,7 +123,6 @@ class TestAccountService(TestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_415_UNSUPPORTED_MEDIA_TYPE)
 
-    # ADD YOUR TEST CASES HERE ...
 ###################################################################################
 # READ ACCOUNT TESTS
 ###################################################################################
@@ -143,7 +142,6 @@ class TestAccountService(TestCase):
 ###################################################################################
 # LIST ALL ACCOUNTS TEST
 ###################################################################################
-
     def test_list_accounts(self):
         """It should list all accounts"""
         self._create_accounts(5)
@@ -170,3 +168,20 @@ class TestAccountService(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         updated_account = response.get_json()
         self.assertEqual(updated_account["name"], "Something Known")
+
+###################################################################################
+# DELETE ACCOUNT TESTS
+###################################################################################
+    def test_delete_account(self):
+        """It should delete an account"""
+        account = self._create_accounts(1)[0]
+        response = self.client.delete(f"{BASE_URL}/{account.id}")
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+    ###################################################################################
+    # METHODS NOT ALLOWED TESTS
+    ###################################################################################
+    def test_method_not_allowed(self):
+        """It should not allow an illegal method call"""
+        response = self.client.delete(BASE_URL)
+        self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
