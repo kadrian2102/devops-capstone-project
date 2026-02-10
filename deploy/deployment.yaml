@@ -13,5 +13,10 @@ spec:
   selector:
     app: accounts
   type: ClusterIP
+  template:
+    spec:
+      containers:
+      - image: IMAGE_NAME_HERE
+        name: accounts
 status:
   loadBalancer: {}
